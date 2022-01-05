@@ -1,0 +1,47 @@
+include "subcircuit.mzn";
+
+int: n_locations;
+enum Vehicles;
+set of int: Locations = 1..n_locations;
+array[Vehicles, Locations] of var Locations: next;
+array[Locations] of var set of Vehicles: groups_to_cars;
+array[Vehicles] of var set of Locations: cars_to_groups;
+
+
+
+array[Vehicles] of int: passanger_capacity;
+array[Vehicles] of int: rental_fee;
+%array[Vehicles] of int: cent_per_kilometer;
+
+%array[Locations] of int: number_of_people;
+
+%array[Locations, Locations] of int:distances;
+
+constraint forall(v in Vehicles) (subcircuit([next[v,s]| s in Locations]));
+
+%linked decision variables
+constraint forall(l in Locations, v in Vehicles) ( l in cars_to_groups[v] <-> v in groups_to_cars[l]);
+
+%constraint to make sure any location other than the destination is only visited once
+constraint forall(l in Locations where l != 1) (card(groups_to_cars[l])=1);
+
+%constraint forall(l in Locations, v in Vehicles where l != 1) (count([next[v,l]],l)) = 1);
+
+%%further linking of decision variables
+
+%constraint forall(l in Locations, v in Vehicles) (l in cars_to_groups[v] = next[v,l]);
+%constraint forall(l in Locations, v in Vehicles) (row(next,l) in groups_to_cars[l]);
+
+
+
+%Making sure that cars carry number of passangers that is below their capacity
+
+%Making sure that the last location that is visited in the subcircuit is the destination
+
+%
+
+%Cost function
+
+
+
+
