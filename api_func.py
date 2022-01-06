@@ -33,12 +33,12 @@ def round_number(n, decimals):
 def rounding_func(n, decimals=0):
     new_list = []
     if isinstance(n, float) or isinstance(n, int):
-        return round_number(n, decimals)
+        return int(round_number(n, decimals))
     if isinstance(n, list):
         if isinstance(n[0], list):
             for i in n:
-                new_list.append([round_number(t, decimals) for t in i])
+                new_list.append([int(round_number(t, decimals)) for t in i])
         else:
-            new_list = [round_number(i, decimals) for i in n]
+            new_list = [int(round_number(i, decimals)) for i in n]
         return new_list
 
