@@ -2,9 +2,15 @@ import sys
 import minizinc as mn
 import Preprocessing as prp
 import pandas as pd
-import os
+import api_func as apf
 
 trip_duration = 2
+fuel_price_multiplier = 1
+
+fuel_price = float(apf.get_fuel_price("Germany","gasoline").replace(",","."))
+
+fuel_price_adjusted = fuel_price * fuel_price_multiplier * 100
+
 
 locations = pd.read_csv("Groups.csv")
 car_set = pd.read_csv("AvailableCars.csv",encoding = 'unicode_escape')
@@ -24,14 +30,15 @@ model = mn.Model("int_solver.mzn")
 solver = mn.Solver.lookup("gecode")
 
 instance = mn.Instance(solver,model)
-
+# Get locations and vehicles
 instance['Vehicles'] = car_filtered['Car Name'].to_list()
 instance['n_locations'] = len(location_filtered)
-
+# Get data regarding the cars to the instance
 instance['passanger_capacity'] = car_filtered['Number of Seats'].to_list()
 total_rental_cost = [i * trip_duration for i in car_filtered['rent fee'].to_list()]
 instance['rental_fee'] = total_rental_cost
-
+car_fuel_price = [i * fuel_price_adjusted for i in car_filtered['liter per kilometer'].to_list()]
+instance['cent_per_kilometer'] = apf.rounding_func(car_fuel_price)
 #instance["number_of_people"] = location_filtered['Number of People'].to_list()
 
 result = instance.solve()
