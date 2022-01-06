@@ -14,7 +14,7 @@ array[Vehicles] of int: passanger_capacity;
 array[Vehicles] of int: rental_fee;
 array[Vehicles] of int: cent_per_kilometer;
 
-%array[Locations] of int: number_of_people;
+array[Locations] of int: number_of_people;
 
 %array[Locations, Locations] of int:distances;
 
