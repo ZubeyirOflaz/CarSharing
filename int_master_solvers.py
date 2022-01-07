@@ -25,12 +25,12 @@ solvers = ["gecode"]
 
 location_filtered = prp.filter_cases(locations,datasets[0],1)
 car_filtered = prp.filter_cases(car_set,datasets[0])
-distance_matrix = prp.get_distance(location_filtered)
-distance_matrix_kilometer = []
-for i in distance_matrix:
-    distance_row = [x / 1000 for x in i]
-    distance_matrix_kilometer.append(distance_row)
-distance_matrix_integer = apf.rounding_func(distance_matrix_kilometer)
+#distance_matrix = prp.get_distance(location_filtered)
+#distance_matrix_kilometer = []
+#for i in distance_matrix:
+#    distance_row = [x / 1000 for x in i]
+##    distance_matrix_kilometer.append(distance_row)
+#distance_matrix_integer = apf.rounding_func(distance_matrix_kilometer)
 
 model = mn.Model("int_solver.mzn")
 solver = mn.Solver.lookup(solvers[0])
@@ -46,6 +46,7 @@ instance['rental_fee'] = total_rental_cost
 car_fuel_price = [i * fuel_price_adjusted for i in car_filtered['liter per kilometer'].to_list()]
 instance['cent_per_kilometer'] = apf.rounding_func(car_fuel_price)
 instance["number_of_people"] = apf.rounding_func(location_filtered['Number of People'].to_list())
-instance['distances'] = distance_matrix_integer
+#instance['distances'] = distance_matrix_integer
 
 result = instance.solve()
+#result[solver][dataset][destination]
