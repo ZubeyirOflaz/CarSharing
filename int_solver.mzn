@@ -13,8 +13,10 @@ array[Vehicles] of var set of Locations: cars_to_groups;
 array[Vehicles] of int: passanger_capacity;
 array[Vehicles] of int: rental_fee;
 array[Vehicles] of int: cent_per_kilometer;
+array[Vehicles] of int: has_large_luggage;
 
 array[Locations] of int: number_of_people;
+array[Locations] of int: needs_large_luggage;
 
 %array[Locations, Locations] of int:distances;
 
