@@ -58,11 +58,11 @@ def get_distance(data_df):
 def filter_cases(dataframe, case_size, destination=None):
     dataframe_filter = []
     if case_size == 'small':
-        dataframe_filter = [f'Destination {destination}', 'Small']
+        dataframe_filter = [f'Destination {destination}', 'Small', 'Rental']
     elif case_size == 'medium':
-        dataframe_filter = [f'Destination {destination}', 'Small', 'Medium']
+        dataframe_filter = [f'Destination {destination}', 'Small', 'Medium', 'Rental']
     elif case_size == 'large':
-        dataframe_filter = [f'Destination {destination}', 'Small', 'Medium', 'Large']
+        dataframe_filter = [f'Destination {destination}', 'Small', 'Medium', 'Large', 'Rental']
     else:
         sys.exit('invalid case size')
     case_df = dataframe[dataframe['Case Type'].isin(dataframe_filter)]

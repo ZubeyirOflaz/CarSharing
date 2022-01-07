@@ -34,9 +34,10 @@ constraint forall(l in Locations where l != 1) (card(groups_to_cars[l])=1);
 %constraint forall(l in Locations, v in Vehicles) (row(next,v) in cars_to_groups[v]);
 %constraint forall(v in Vehicles)(among(row(next,v in Vehicles), cars_to_groups[v]));
 
-%% Usman's Part
+%% Ahmed's Part
 %Making sure that cars carry number of passangers that is below their capacity
 constraint forall(l in Locations, v in Vehicles)(number_of_people[l] <= passanger_capacity[v]);
+
 %Making sure that the last location that is visited in the subcircuit is the destination
 %constraint next[];
 %[Optional] Families with children can only take cars with kid seat
