@@ -14,7 +14,7 @@ fuel_price_adjusted = fuel_price * fuel_price_multiplier * 100
 
 locations = pd.read_csv("Groups.csv")
 car_set = pd.read_csv("AvailableCars.csv",encoding = 'unicode_escape')
-driver: mn.Driver = mn.find_driver([r"F:\Program Files\Minizinc"],name="minizinc.exe")
+driver: mn.Driver = mn.find_driver([r"C:\Program Files\Minizinc"],name="minizinc.exe")
 driver.make_default()
 print(mn.default_driver.minizinc_version)
 
