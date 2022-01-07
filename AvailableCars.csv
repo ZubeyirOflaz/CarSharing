@@ -1,17 +1,17 @@
 Case Type,Car Name,Large Luggage Space,Number of Seats,liter per kilometer,rent fee
-Small,Volkswagen Golf,false,5,0.06,72
-Small,Volkswagen Golf SportWagen,false,5,0.089,79
-Small,Ford Galaxy,false,7,0.075,133
-Small,Nissan Juke,true,5,0.063,79
-Small,Mercedes-Benz V-Class,true,9,0.068,229
-Small,Toyota Aygo,false,4,0.045,61
-Medium,Opel Corsa,false,5,0.059,63
-Medium,Mercedes-Benz V-Class,true,9,0.068,229
-Medium,Skoda Superb,false,5,0.048,106
-Medium,Volkswagen Golf,false,5,0.06,88
-Medium,Audi A4,false,5,0.08,120
-Large,Renault Grand Scenic,true,7,0.065,144
-Large,Seat Leon,false,5,0.053,173
-Large,Nissan Qashqai,true,5,0.075,124
-Large,Volvo XC60,false,5,0.059,137
-Large,Skoda Octavia,false,5,0.055,87
+Small,Volkswagen Golf,0,5,0.06,72
+Small,Volkswagen Golf SportWagen,0,5,0.089,79
+Small,Ford Galaxy,0,7,0.075,133
+Small,Nissan Juke,1,5,0.063,79
+Small,Mercedes-Benz V-Class,1,9,0.068,229
+Small,Toyota Aygo,0,4,0.045,61
+Medium,Opel Corsa,0,5,0.059,63
+Medium,Mercedes-Benz V-Class,1,9,0.068,229
+Medium,Skoda Superb,0,5,0.048,106
+Medium,Volkswagen Golf,0,5,0.06,88
+Medium,Audi A4,0,5,0.08,120
+Large,Renault Grand Scenic,1,7,0.065,144
+Large,Seat Leon,0,5,0.053,173
+Large,Nissan Qashqai,1,5,0.075,124
+Large,Volvo XC60,0,5,0.059,137
+Large,Skoda Octavia,0,5,0.055,87
