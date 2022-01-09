@@ -18,7 +18,7 @@ array[Vehicles] of int: has_large_luggage;
 array[Locations] of int: number_of_people;
 array[Locations] of int: needs_large_luggage;
 
-%array[Locations, Locations] of int:distances;
+array[Locations, Locations] of int:distances;
 
 constraint forall(v in Vehicles) (subcircuit([next[v,s]| s in Locations]));
 
@@ -26,9 +26,17 @@ constraint forall(v in Vehicles) (subcircuit([next[v,s]| s in Locations]));
 constraint forall(l in Locations, v in Vehicles) ( l in cars_to_groups[v] <-> v in groups_to_cars[l]);
 
 %constraint to make sure any location other than the destination is only visited once
-constraint forall(l in Locations where l != 1) (card(groups_to_cars[l])=1);
+%constraint forall(l in Locations where l != 1) (card(groups_to_cars[l])=1);
 
-%constraint forall(l in Locations, v in Vehicles where l != 1) (count([next[v,l]],l)) = 1);
+%Cost function
+array[Vehicles] of var int: travel_cost;
+constraint forall(v in Vehicles, l in Locations) (
+  sum(v in Vehicles)(distances[l,next[v,l]]*cent_per_kilometer[v]) = travel_cost[v]) ;
+array[Vehicles] of var int: rental_cost;
+constraint forall(v in Vehicles where travel_cost[v] != 0) (rental_cost[v]=rental_fee[v]);
+var int: total_cost;
+constraint forall(v in Vehicles) (sum(v in Vehicles)(travel_cost[v]+rental_cost[v]) = total_cost);
+solve minimize total_cost;
 
 %%[HELP] Further linking of decision variables
 
@@ -45,8 +53,8 @@ constraint forall(l in Locations, v in Vehicles)(number_of_people[l] <= passange
 %Making sure that the last location that is visited in the subcircuit is the destination
 %constraint next[];
 %[Optional] Families with children can only take cars with kid seat
+
 constraint forall(l in Locations, v in Vehicles)(if needs_large_luggage[l] = 1 then has_large_luggage[v] ==  needs_large_luggage[l] endif);
-%Cost function
 
 
 
