@@ -41,17 +41,20 @@ solve minimize total_cost;
 %%[HELP] Further linking of decision variables
 
 %constraint forall(l in Locations, v in Vehicles) (l in cars_to_groups[v] = next[v,l]);
-%constraint forall(l in Locations, v in Vehicles) (row(next,v) in cars_to_groups[v]);
+%constraint forall(l in Locations, v in Vehicles) (row(next,v) in cars_to_groups[v]);e
 %constraint forall(v in Vehicles)(among(row(next,v in Vehicles), cars_to_groups[v]));
 
 %% Ahmed's Part
 %Making sure that cars carry number of passangers that is below their capacity
 constraint forall(l in Locations, v in Vehicles)(number_of_people[l] <= passanger_capacity[v]);
+%constraint forall(l in Locations, v in Vehicles)({ s | s in groups_to_cars[l] where number_of_people[l] <= passanger_capacity[s]
+%});
 
 %Making sure that the last location that is visited in the subcircuit is the destination
 %constraint next[];
 %[Optional] Families with children can only take cars with kid seat
-%constraint forall();
+
+constraint forall(l in Locations, v in Vehicles)(if needs_large_luggage[l] = 1 then has_large_luggage[v] ==  needs_large_luggage[l] endif);
 
 
 
