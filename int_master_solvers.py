@@ -21,16 +21,16 @@ print(mn.default_driver.minizinc_version)
 
 datasets = ["small", "medium", "large"]
 destinations = [1, 2, 3, 4]
-solvers = ["gecode"]
+solvers = ["gecode","chuffed","globalizer"]
 
 location_filtered = prp.filter_cases(locations,datasets[0],1)
 car_filtered = prp.filter_cases(car_set,datasets[0])
-#distance_matrix = prp.get_distance(location_filtered)
-#distance_matrix_kilometer = []
-#for i in distance_matrix:
-#    distance_row = [x / 1000 for x in i]
-##    distance_matrix_kilometer.append(distance_row)
-#distance_matrix_integer = apf.rounding_func(distance_matrix_kilometer)
+distance_matrix = prp.get_distance(location_filtered)
+distance_matrix_kilometer = []
+for i in distance_matrix:
+    distance_row = [x / 1000 for x in i]
+    distance_matrix_kilometer.append(distance_row)
+distance_matrix_integer = apf.rounding_func(distance_matrix_kilometer)
 
 model = mn.Model("int_solver.mzn")
 solver = mn.Solver.lookup(solvers[0])
@@ -49,7 +49,7 @@ instance['has_large_luggage'] = apf.rounding_func(car_filtered['Large Luggage Sp
 
 instance["number_of_people"] = apf.rounding_func(location_filtered['Number of People'].to_list())
 instance["needs_large_luggage"] = apf.rounding_func(location_filtered['Needs Large Luggage'].to_list())
-#instance['distances'] = distance_matrix_integer
+instance['distances'] = distance_matrix_integer
 
 result = instance.solve()
 #result[solver][dataset][destination]
