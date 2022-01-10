@@ -52,11 +52,12 @@ constraint forall(l in Locations, v in Vehicles where next[v,l] != l) (next[v,l]
 %constraint forall(l in Locations, v in Vehicles)(number_of_people[l] <= passanger_capacity[v]);
 %constraint forall(l in Locations, v in Vehicles)({ s | s in groups_to_cars[l] where number_of_people[l] <= passanger_capacity[s]
 %});
+constraint forall(v in Vehicles, l in Locations) (
+  sum(v in Vehicles)(cars_to_groups[v]*number_of_people[l]) <= passanger_capacity[v]) ;
 
 %Making sure that the last location that is visited in the subcircuit is the destination
-%constraint next[];
+constraint forall(v in Vehicles, l in Locations)(if next[v,l] = l then next[v,l-1] == next[v,l] endif) ;
 %[Optional] Families with children can only take cars with kid seat
-
 %constraint forall(l in Locations, v in Vehicles)(if needs_large_luggage[l] = 1 then has_large_luggage[v] ==  needs_large_luggage[l] endif);
 
 
