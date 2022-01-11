@@ -1,5 +1,4 @@
 include "subcircuit.mzn";
-include "among_fn.mzn";
 
 int: n_locations;
 enum Vehicles;
@@ -25,25 +24,27 @@ array[Locations, Locations] of int:distances;
 constraint forall(v in Vehicles) (subcircuit([next[v,s]| s in Locations]));
 
 %linked decision variables
-constraint forall(l in Locations, v in Vehicles) ( l in cars_to_groups[v] <-> v in groups_to_cars[l]);
+%constraint forall(l in Locations, v in Vehicles) ( l in cars_to_groups[v] <-> v in groups_to_cars[l]);
 
 %constraint to make sure any location other than the destination is visited once
-constraint forall(l in Locations where l != 1) (card(groups_to_cars[l])=1);
+%constraint forall(l in Locations where l != 1) (card(groups_to_cars[l])=1);
 
 %Cost function
 array[Vehicles] of var int: travel_cost;
-constraint forall(v in Vehicles, l in Locations) (
-  sum(v in Vehicles)(distances[l,next[v,l]]*cent_per_kilometer[v]) = travel_cost[v]) ;
-%array[Vehicles] of var int: rental_cost;
-%constraint forall(v in Vehicles where travel_cost[v] != 0) (rental_cost[v]=rental_fee[v]);
+constraint forall(v in Vehicles) (
+  sum(l in Locations where next[v,l] != l)(distances[l,next[v,l]]*cent_per_kilometer[v]) = travel_cost[v]) ;
+array[Vehicles] of var int: rental_cost;
+constraint forall(v in Vehicles where travel_cost[v] != 0) (rental_cost[v]=rental_fee[v]);
 var int: total_cost;
-%constraint forall(v in Vehicles) (sum(v in Vehicles)(travel_cost[v]+rental_cost[v]) = total_cost);
-constraint forall(v in Vehicles) (sum(v in Vehicles)(travel_cost[v]) = total_cost);
+constraint total_cost = sum(v in Vehicles)(travel_cost[v]+rental_cost[v]);
+%constraint forall(v in Vehicles) (sum(v in Vehicles)(travel_cost[v]) = total_cost);
 solve minimize total_cost;
 
 %%[HELP] Further linking of decision variables
-
-constraint forall(l in Locations, v in Vehicles where next[v,l] != l) (next[v,l] in cars_to_groups[v]);
+%constraint next['Volkswagen\xa0Golf',1] != 1;
+%constraint card(groups_to_cars[2]) >0;
+%constraint forall(l in Locations, v in Vehicles where next[v,l] != l) (next[v,l] in cars_to_groups[v]);
+constraint forall(v in Vehicles, l in Locations)(l in cars_to_groups[v] <-> next[v,l] != l);
 %constraint forall(l in Locations, v in Vehicles where next[v,l] != l) (row(next,v) in cars_to_groups[v]);
 %constraint forall(v in Vehicles)(among(row(next,v in Vehicles), cars_to_groups[v]));
 

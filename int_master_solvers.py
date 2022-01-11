@@ -21,7 +21,7 @@ print(mn.default_driver.minizinc_version)
 
 datasets = ["small", "medium", "large"]
 destinations = [1, 2, 3, 4]
-solvers = ["gecode","chuffed","globalizer"]
+solvers = ["gecode","chuffed","globalizer","coin-bc"]
 
 location_filtered = prp.filter_cases(locations,datasets[0],1)
 car_filtered = prp.filter_cases(car_set,datasets[0])
@@ -33,7 +33,7 @@ for i in distance_matrix:
 distance_matrix_integer = apf.rounding_func(distance_matrix_kilometer)
 
 model = mn.Model("int_solver.mzn")
-solver = mn.Solver.lookup(solvers[0])
+solver = mn.Solver.lookup(solvers[1])
 
 instance = mn.Instance(solver,model)
 # Get locations and vehicles
