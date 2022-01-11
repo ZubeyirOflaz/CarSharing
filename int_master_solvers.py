@@ -33,7 +33,7 @@ for i in distance_matrix:
 distance_matrix_integer = apf.rounding_func(distance_matrix_kilometer)
 
 model = mn.Model("int_solver.mzn")
-solver = mn.Solver.lookup(solvers[1])
+solver = mn.Solver.lookup(solvers[3])
 
 instance = mn.Instance(solver,model)
 # Get locations and vehicles
