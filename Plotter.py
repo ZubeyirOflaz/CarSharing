@@ -1,9 +1,11 @@
 import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.rcParams['interactive'] == True
 # Credits: This script is taken from the Github user payoung's profile (link: https://gist.github.com/payoung/6087046)
 # All work on this plotter aside from minor changes made by me belongs to him.
 
 
-def plotTSP(path, points, num_iters=1):
+def plotTSP(path, points, num_iters=1,file_name = 'Test'):
     """
     path: List of lists with the different orders in which the nodes are visited
     points: coordinates for the different nodes
@@ -16,7 +18,7 @@ def plotTSP(path, points, num_iters=1):
 
     x = [];
     y = []
-    for i in paths[0]:
+    for i in path[0]:
         x.append(points[i][0])
         y.append(points[i][1])
 
@@ -33,7 +35,7 @@ def plotTSP(path, points, num_iters=1):
             # Transform the old paths into a list of coordinates
             xi = [];
             yi = [];
-            for j in paths[i]:
+            for j in path[i]:
                 xi.append(points[j][0])
                 yi.append(points[j][1])
 
@@ -56,7 +58,8 @@ def plotTSP(path, points, num_iters=1):
     # Set axis too slitghtly larger than the set of x and y
     plt.xlim(0, max(x) * 1.1)
     plt.ylim(0, max(y) * 1.1)
-    plt.savefig('test')
+    plt.savefig(f"plots\\{file_name}")
+    plt.close()
 
 
 if __name__ == '__main__':

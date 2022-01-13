@@ -3,6 +3,10 @@ import minizinc as mn
 import Preprocessing as prp
 import pandas as pd
 import api_func as apf
+import plotter_processing as plp
+from Plotter import plotTSP
+import plotter_processing as plp
+
 
 trip_duration = 2
 fuel_price_multiplier = 1
@@ -18,7 +22,7 @@ driver: mn.Driver = mn.find_driver([r"F:\Program Files\Minizinc"],name="minizinc
 driver.make_default()
 print(mn.default_driver.minizinc_version)
 dataset_index = "medium"
-destination_index = 2
+destination_index = 1
 solver_index = "coin-bc"
 
 datasets = ["small", "medium", "large"]
@@ -54,4 +58,9 @@ instance["needs_large_luggage"] = apf.rounding_func(location_filtered['Needs Lar
 instance['distances'] = distance_matrix_integer
 
 result = instance.solve()
+coordinates = plp.set_coordinates(location_filtered)
+
+routes = result.solution.next
+routes_test = plp.get_routes(routes)
+plotTSP(routes_test,coordinates,len(routes_test),f'case_{dataset_index}-destination_{destination_index}')
 #result[solver][dataset][destination]
