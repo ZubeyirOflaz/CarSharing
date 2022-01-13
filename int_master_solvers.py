@@ -17,15 +17,17 @@ car_set = pd.read_csv("AvailableCars.csv",encoding = 'unicode_escape')
 driver: mn.Driver = mn.find_driver([r"F:\Program Files\Minizinc"],name="minizinc.exe")
 driver.make_default()
 print(mn.default_driver.minizinc_version)
-
+dataset_index = "medium"
+destination_index = 2
+solver_index = "coin-bc"
 
 datasets = ["small", "medium", "large"]
-destinations = [1, 2, 3, 4]
+destinations = [1, 2, 3]
 solvers = ["gecode","chuffed","globalizer","coin-bc"]
 
-location_filtered = prp.filter_cases(locations,datasets[0],1)
-car_filtered = prp.filter_cases(car_set,datasets[0])
-distance_matrix = prp.get_distance(location_filtered)
+location_filtered = prp.filter_cases(locations,dataset_index,destination_index)
+car_filtered = prp.filter_cases(car_set,dataset_index)
+distance_matrix = prp.read_distances(dataset_index,destination_index)
 distance_matrix_kilometer = []
 for i in distance_matrix:
     distance_row = [x / 1000 for x in i]
@@ -33,7 +35,7 @@ for i in distance_matrix:
 distance_matrix_integer = apf.rounding_func(distance_matrix_kilometer)
 
 model = mn.Model("int_solver.mzn")
-solver = mn.Solver.lookup(solvers[3])
+solver = mn.Solver.lookup(solver_index)
 
 instance = mn.Instance(solver,model)
 # Get locations and vehicles

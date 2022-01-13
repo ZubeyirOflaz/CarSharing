@@ -5,7 +5,7 @@ import requests as r
 import pandas as pd
 from time import sleep
 import datetime
-
+import ast
 
 # This function returns the travel distance by car between two points
 
@@ -53,6 +53,7 @@ def get_distance(data_df):
     # Return the distance matrix to the user
     return distance_list
 
+
 # This function lets us filter specific value groups and destinations
 
 def filter_cases(dataframe, case_size, destination=None):
@@ -68,14 +69,36 @@ def filter_cases(dataframe, case_size, destination=None):
     case_df = dataframe[dataframe['Case Type'].isin(dataframe_filter)]
     return case_df
 
-#data = pd.read_csv('Groups.csv')
-#data = filter_cases(data,'large',1)
-#test_distance = get_distance(data)
+
+def save_distances(dataframe, case_list, destination_list):
+    for case_index in case_list:
+        for destination_index in destination_list:
+            data_filtered = filter_cases(dataframe, case_index, destination_index)
+            destination_matrix = get_distance(data_filtered)
+            with open(f'case_{case_index}_destination_{destination_index}.txt', 'w') as filehandle:
+                for listitem in destination_matrix:
+                    filehandle.write('%s\n' % listitem)
 
 
+def read_distances(case_name, destination_number):
+    distance_list = []
+    with open(f'case_{case_name}_destination_{destination_number}.txt', 'r') as filehandle:
+        for line in filehandle:
+            current_row = ast.literal_eval(line[:-1])
+            distance_list.append(current_row)
+    return distance_list
 
 
-    # response = r.get(f"http://router.project-osrm.org/route/v1/car/{long_1},{lat_1};{long_2},{lat_2}?overview=false""")
-    # route = j.loads(response.content)
-    # print(response.status_code)
-    # return route
+if __name__ == '__main__':
+    data = pd.read_csv('Groups.csv')
+    case_list = ['small', 'medium', 'large']
+    destination_list = [1, 2, 3]
+    save_distances(data, case_list, destination_list)
+# data = filter_cases(data,'large',1)
+# test_distance = get_distance(data)
+
+
+# response = r.get(f"http://router.project-osrm.org/route/v1/car/{long_1},{lat_1};{long_2},{lat_2}?overview=false""")
+# route = j.loads(response.content)
+# print(response.status_code)
+# return route

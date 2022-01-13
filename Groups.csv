@@ -1,9 +1,7 @@
 Case Type,Group Name,Number of People,Needs Large Luggage,Lat,Long
-Rental,Rental Location,0,0,48.753795,11.450752
-Destination 1,Nurnberg,0,0,49.457682,11.074922
-Destination 2,Munchen,0,0,48.155771,11.589887
-Destination 3,Garmisch,0,0,47.494299,11.092526
-Destination 4,Zurich,0,0,47.381697,8.528343
+Destination 1,Audi Factory,0,0,48.785945,11.392522
+Destination 2,Garmisch,0,0,47.494299,11.092526
+Destination 3,Warsaw,0,0,52.226193,20.994955
 Small,A,1,0,48.765798,11.418196
 Small,B,2,1,48.768429,11.409623
 Small,C,4,0,48.778412,11.404172
