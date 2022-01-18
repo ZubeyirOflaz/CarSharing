@@ -22,7 +22,7 @@ driver: mn.Driver = mn.find_driver([r"F:\Program Files\Minizinc"],name="minizinc
 driver.make_default()
 print(mn.default_driver.minizinc_version)
 dataset_index = "medium"
-destination_index = 1
+destination_index = 2
 solver_index = "coin-bc"
 
 datasets = ["small", "medium", "large"]
@@ -47,7 +47,7 @@ instance['Vehicles'] = car_filtered['Car Name'].to_list()
 instance['n_locations'] = len(location_filtered)
 # Get data regarding the cars to the instance
 instance['passanger_capacity'] = car_filtered['Number of Seats'].to_list()
-total_rental_cost = [i * trip_duration for i in car_filtered['rent fee'].to_list()]
+total_rental_cost = [i * trip_duration * 100 for i in car_filtered['rent fee'].to_list()]
 instance['rental_fee'] = total_rental_cost
 car_fuel_price = [i * fuel_price_adjusted for i in car_filtered['liter per kilometer'].to_list()]
 instance['cent_per_kilometer'] = apf.rounding_func(car_fuel_price)
@@ -60,7 +60,7 @@ instance['distances'] = distance_matrix_integer
 result = instance.solve()
 coordinates = plp.set_coordinates(location_filtered)
 
-routes = result.solution.next
-routes_test = plp.get_routes(routes)
-plotTSP(routes_test,coordinates,len(routes_test),f'case_{dataset_index}-destination_{destination_index}')
+#routes = result.solution.next
+#routes_test = plp.get_routes(routes)
+#plotTSP(routes_test,coordinates,len(routes_test),f'case_{dataset_index}-destination_{destination_index}')
 #result[solver][dataset][destination]
