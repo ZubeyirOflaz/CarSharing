@@ -41,9 +41,9 @@ if __name__ == '__main__':
     df_filtered = prp.filter_cases(df, 'small', 2)
     test = set_coordinates(df_filtered)
     path_1 = [0,5,3]
-    path_2 = [2,1,4,6,5]
+    path_2 = [2,1,4,5]
     path = [path_1, path_2]
-    a = [[1, 2, 3, 4, 5, 6, 7], [1, 2, 3, 4, 5, 6, 7], [1, 2, 3, 4, 5, 6, 7], [1, 2, 3, 4, 5, 6, 7],
-         [7, 6, 3, 2, 4, 1, 5], [7, 6, 2, 3, 4, 1, 5]]
-    test = get_routes(a)
-    #plt.plotTSP(path,test,2)
+    a = [[6, 2, 4, 5, 0, 1], [3, 0]]
+    a = [[6, 2, 4, 5, 0, 1], [0,3,0,3,0,3]]
+    #test = get_routes(path)
+    plt.plotTSP(a,test,2,'test2.png')

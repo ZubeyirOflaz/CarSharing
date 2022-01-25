@@ -18,7 +18,7 @@ def plotTSP(path, points, num_iters=1,file_name = 'Test'):
 
     x = [];
     y = []
-    for i in path[0]:
+    for i in range(len(points)):
         x.append(points[i][0])
         y.append(points[i][1])
 
@@ -44,6 +44,8 @@ def plotTSP(path, points, num_iters=1,file_name = 'Test'):
                       length_includes_head=True, ls='dashed',
                       width=0.001 / float(num_iters))
             for i in range(0, len(x) - 1):
+                print(xi[i+1])
+                print(yi[i+1])
                 plt.arrow(xi[i], yi[i], (xi[i + 1] - xi[i]), (yi[i + 1] - yi[i]),
                           head_width=a_scale, color='r', length_includes_head=True,
                           ls='dashed', width=0.001 / float(num_iters))
@@ -77,7 +79,7 @@ if __name__ == '__main__':
     path4 = [0, 1, 2, 3, 4, 5, 6]
     path3 = [0, 2, 1, 3, 4, 5, 6]
     path2 = [0, 2, 1, 3, 6, 5, 4]
-    path1 = [0, 2, 1, 3, 6, 4, 5]
+    path1 = [0, 2, 1, 0, 6, 4, 5]
 
     # Pack the paths into a list
     paths = [path1, path2, path3, path4]
