@@ -55,6 +55,6 @@ constraint forall(v in Vehicles) (
 %Making sure that the last location that is visited in the subcircuit is the destination
 constraint forall(v in Vehicles)(next[v,1] = 1 <-> forall(l in Locations)(next[v, l] = l));
 
-%[Optional] Families 
+%Making sure that Families get the cars with large luggage
 constraint forall(l in Locations where needs_large_luggage[l] = 1)(forall(v in groups_to_cars[l]) (has_large_luggage[v] ==  1));
 
