@@ -27,9 +27,9 @@ print(mn.default_driver.minizinc_version)
 #destination_index = 2
 #solver_index = "globalizer"
 
-datasets = ["small"]# , "medium", "large"]
+datasets = ["small", "medium", "large"]
 destinations = [1, 2, 3]
-solvers = ["gecode","chuffed","coin-bc"]
+solvers = ["chuffed","coin-bc"]
 
 result_set = collections.defaultdict(dict)
 for dataset_index in datasets:
@@ -37,6 +37,7 @@ for dataset_index in datasets:
     for destination_index in destinations:
         result_set[dataset_index][destination_index] = {}
         for solver_index in solvers:
+            print(f'{dataset_index}, {destination_index}, {solver_index}')
             result_set[dataset_index][destination_index][solver_index] = {}
             location_filtered = prp.filter_cases(locations,dataset_index,destination_index)
             car_filtered = prp.filter_cases(car_set,dataset_index)
@@ -67,6 +68,7 @@ for dataset_index in datasets:
             instance['distances'] = distance_matrix_integer
 
             result = instance.solve()
+            print(f'Solution Time:{result.statistics["solveTime"]}')
             coordinates = plp.set_coordinates(location_filtered)
             result_set[dataset_index][destination_index][solver_index] = result
             routes = result.solution.next
