@@ -9,10 +9,10 @@ import plotter_processing as plp
 import collections
 
 
-trip_duration = 2
+trip_duration = 1
 fuel_price_multiplier = 1
 
-fuel_price = 1# float(apf.get_fuel_price("Germany","gasoline").replace(",","."))
+fuel_price =  float(apf.get_fuel_price("Germany","gasoline").replace(",","."))
 
 fuel_price_adjusted = fuel_price * fuel_price_multiplier * 100
 
@@ -27,7 +27,7 @@ print(mn.default_driver.minizinc_version)
 #destination_index = 2
 #solver_index = "globalizer"
 
-datasets = ["small", "medium", "large"]
+datasets = ["small"]
 destinations = [1, 2, 3]
 solvers = ["chuffed","coin-bc"]
 

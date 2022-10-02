@@ -2,7 +2,7 @@
 > Project to solve the multi travelling salesman problem using optimization research models
 
 <p align="center">
-<img src="https://img.shields.io/github/license/ZubeyirOflaz/Deep-Learning-Uncertainty-Quantification-Methods" alt="plot" width="75">
+<img src="https://img.shields.io/github/license/ZubeyirOflaz/CarSharing" alt="plot" width="75">
 <img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="plot" width="85">
 
 </p>
@@ -19,7 +19,7 @@ The python scripts retrieve and process the necessary input data and then relay 
 
 ## Features
 
-- Easy to use and flexible model for finding optimal routes for most economical car-sharing solution
+- Easy to use and flexible model for finding optimal routes for the most economical car-sharing solution
 
 
 - Adapts to current fuel prices and available rental cars easily
@@ -39,7 +39,7 @@ The python scripts retrieve and process the necessary input data and then relay 
 ## Usage
 Groups file             |  AvailableCars file
 :-------------------------:|:-------------------------:
-![](docs\groups.png)  |  ![](docs\Cars.png)
+![](https://github.com/ZubeyirOflaz/CarSharing/blob/master/docs/Groups.png)  |  ![](https://github.com/ZubeyirOflaz/CarSharing/blob/master/docs/Cars.png)
 
 The script uses two CSV files, namely Groups and AvailableCars, as the information source. The Groups file contains all the destinations as well as groups and their requirements. AvailableCars file contains all the rental cars and the relevant information about these rentals. The instances in these files are grouped into small, medium and large datasets in order to measure the solver performance with different size MTSP instances. The distance matrix is created for all the locations and the information in these CSV files are converted to be used in the Minizinc model. Then the master script runs the OR model and returns the result as well as the model's performance with the solver that is used.
 
